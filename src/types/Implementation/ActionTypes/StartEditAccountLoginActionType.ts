@@ -1,0 +1,5 @@
+export const START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE = "START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE"
+
+export type StartEditAccountLoginActionType = {
+    type: typeof START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE,
+}

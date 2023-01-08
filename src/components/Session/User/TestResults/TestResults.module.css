@@ -1,0 +1,26 @@
+.ul{
+ padding: 10px;
+}
+.li{
+    margin-bottom: 7px;
+    height: 40px;
+    padding: 5PX;
+    border: 2px solid rgba(225,225,225,.3);
+    display: grid;
+    grid-template-columns: 3fr 7fr 1fr 1fr;
+    border-radius: 3px;
+}
+.li:has(.button:hover){
+    border-color: #fff;
+}
+.li *{
+    margin: auto 0;
+}
+.button{
+    color: #fff;
+    opacity: .5;
+    cursor: pointer;
+}
+.button:hover{
+    opacity: 1;
+}

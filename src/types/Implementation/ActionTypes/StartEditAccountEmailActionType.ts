@@ -1,0 +1,5 @@
+export const START_EDIT_ACCOUNT_EMAIL_ACTION_TYPE = "START_EDIT_ACCOUNT_EMAIL_ACTION_TYPE"
+
+export type StartEditAccountEmailActionType = {
+    type: typeof START_EDIT_ACCOUNT_EMAIL_ACTION_TYPE,
+}

@@ -1,0 +1,5 @@
+.wrapper{
+    grid-area: c;
+    display: grid;
+    grid-gap: 20px;
+}

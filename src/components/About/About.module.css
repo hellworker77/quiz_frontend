@@ -1,0 +1,26 @@
+.wrapper{
+    grid-area: c;
+}
+.display_text{
+    margin: 0 auto 60px auto;
+    font-size:40px;
+    width: 80%;
+    text-align: center;
+}
+.links{
+    display: grid;
+    gap: 20px;
+    grid-template-rows: 77px 77px 77px 77px 77px;
+    margin-left: 40px;
+}
+.link{
+    display: flex;
+    flex-direction: row;
+    font-size: 38px;
+    text-decoration: none;
+    color: azure;
+}
+.link p{
+    margin: auto 0;
+    padding-left: 15px;
+}

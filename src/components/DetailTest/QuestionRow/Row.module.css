@@ -1,0 +1,68 @@
+.answer{
+    height: 50px;
+    margin-top: auto;
+    cursor: pointer;
+    width: auto;
+    display: flex;
+    border: 2px rgba(15,15,15,.5) solid;
+    border-radius: 5px 25px 5px 25px;
+
+}
+.answer,
+.answer *{
+    transition: border 500ms;
+}
+.text{
+    display: block;
+    font-size: 15px;
+    margin: auto 0;
+}
+.checkbox{
+    display: flex;
+}
+.checkbox button{
+    height: 7px;
+    background-color: transparent;
+    border: rgba(25,25,25,.5) solid 6px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    transition: 1s;
+    margin: auto 10px auto 0;
+}
+.circle{
+    margin: auto 5px auto 5px;
+    border-radius: 50%;
+    border: rgba(25,25,25,.5) solid 7px;
+    width: 10px;
+    height: 10px;
+}
+.answer:hover .circle,
+.answer:hover
+{
+    border-color: rgba(215,215,215, .5);
+}
+.answered,
+.answer .answered .circle{
+    border-color: rgba(35,115,65, 1);
+}
+.answered:hover,
+.answer:hover .answered .circle{
+    border-color: rgba(75,215,75, 1);
+}
+.active,
+.answer .active .circle{
+    border-color: rgba(35,65,115, 1);
+}
+.active:hover,
+.answer:hover .active .circle{
+    border-color: rgba(75,75,215, 1);
+}
+.incorrect,
+.answer .incorrect .circle{
+    border-color: rgba(115,35,35, 1);
+}
+.incorrect:hover,
+.answer:hover .incorrect .circle{
+    border-color: rgba(215,75,75, 1);
+}

@@ -1,0 +1,49 @@
+.bar{
+    display: flex;
+    margin: 0 auto 0 auto;
+    height: 45px;
+}
+.button_next, .button_back, .button{
+    width: 45px;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 2px;
+    display: grid;
+    background-color: rgba(15,15,15,.5);
+}
+.button_next:hover, .button_back:hover, .button:hover{
+    background-color: rgba(35,35,35,.5);
+}
+.buttons_container{
+    display: flex;
+}
+.button_next button,
+.button_back button,
+.button button{
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    color: #fff;
+}
+.active button,
+.answered button{
+    color: #fff;
+}
+.active button{
+    background-color: rgba(35,65,115, .5);
+}
+.active button:hover{
+    background-color: rgba(75,75,215, .5);
+}
+.answered button{
+    background-color: rgba(35,115,65, .5);
+}
+.answered button:hover{
+    background-color: rgba(75,215,75, .5);
+}
+.incorrect button{
+    background-color: rgba(115,35,35, .5);
+}
+.incorrect button:hover{
+    background-color: rgba(215,75,75, .5);
+}

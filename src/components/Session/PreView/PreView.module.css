@@ -1,0 +1,27 @@
+.box{
+    width: 500px;
+    aspect-ratio : 3 / 4;
+    background: linear-gradient(to bottom right, rgba(15,15,15, 0.8), rgb(25,25,25, 0.4));
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+.box img{
+    width: 20%;
+    margin: 30px auto 20px auto;
+}
+.box p{
+    font-size: 28px;
+    margin: 0 auto;
+}
+@media only screen and (max-width:620px) {
+    .box{
+        width: 100%;
+        background: none;
+        margin-top: 5px;
+    }
+    .box img, .box p{
+        display: none;
+    }
+}
