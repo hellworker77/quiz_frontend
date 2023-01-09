@@ -3,5 +3,5 @@ import {Question} from "../Question/Question";
 
 
 export type Test = AbstractTest & {
-    questions: Array<Question> | null;
+    questionsDto: Array<Question> | null;
 }

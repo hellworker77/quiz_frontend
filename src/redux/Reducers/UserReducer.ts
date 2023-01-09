@@ -2,35 +2,38 @@ import {InitialStateUserType} from "../../types/Implementation/InitialStates/Ini
 import {
     CHANGE_LOGIN_ACTION_TYPE,
     ChangeLoginActonType
-} from "../../types/Implementation/ActionTypes/СhangeLoginActonType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/СhangeLoginActonType";
 import {
     CHANGE_EMAIL_ACTION_TYPE,
     ChangeEmailActionType
-} from "../../types/Implementation/ActionTypes/ChangeEmailActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/ChangeEmailActionType";
 import {
     CHANGE_PASSWORD_ACTION_TYPE,
     ChangePasswordActionType
-} from "../../types/Implementation/ActionTypes/ChangePasswordActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/ChangePasswordActionType";
 import {
     CHANGE_REPEAT_PASSWORD_ACTION_TYPE,
     ChangeRepeatPasswordActionType
-} from "../../types/Implementation/ActionTypes/ChangeRepeatPasswordActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/ChangeRepeatPasswordActionType";
 import {
     START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE,
     StartEditAccountLoginActionType
-} from "../../types/Implementation/ActionTypes/StartEditAccountLoginActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StartEditAccountLoginActionType";
 import {
     START_EDIT_ACCOUNT_EMAIL_ACTION_TYPE,
     StartEditAccountEmailActionType
-} from "../../types/Implementation/ActionTypes/StartEditAccountEmailActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StartEditAccountEmailActionType";
 import {
     EDIT_ACCOUNT_EMAIL_ACTION_TYPE,
     EditAccountEmailActionType
-} from "../../types/Implementation/ActionTypes/EditAccountEmailActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/EditAccountEmailActionType";
 import {
     EDIT_ACCOUNT_LOGIN_ACTION_TYPE,
     EditAccountLoginActionType
-} from "../../types/Implementation/ActionTypes/EditAccountLoginActionType";
+} from "../../types/Implementation/ActionTypes/UserActionTypes/EditAccountLoginActionType";
+import {SessionType} from "../../types/Implementation/Models/Users/SessionType";
+import {LOAD_TOKEN_ACTION_TYPE, LoadTokenActionType} from "../../types/Implementation/ActionTypes/UserActionTypes/LoadTokenActionType";
+import axios from "axios";
 
 let initialState : InitialStateUserType = {
     authorizedUser : {
@@ -44,13 +47,15 @@ let initialState : InitialStateUserType = {
     leaderBoard: null,
     loadedUserData: null,
     session: {
-        token: null,
-        isAuthorized: true,
-        login: "login",
-        email: "mail@gmail.com",
-        password: "password",
-        repeatPassword: "password"
+        access_token: "",
+        expires_in: 0,
+        scope: "",
+        token_type: ""
     },
+    login: "admin",
+    email: "mail@gmail.com",
+    password: "!QAZ2wsx",
+    repeatPassword: "!QAZ2wsx",
     editingEmail: false,
     editingLogin: false
 }
@@ -60,22 +65,22 @@ const UserReducer = (state = initialState, action : UserPageGlobalActionType) : 
         case CHANGE_LOGIN_ACTION_TYPE:
             return {
                 ...state,
-                session : {...state.session, login: action.changedLogin},
+                login: action.changedLogin
             }
         case CHANGE_EMAIL_ACTION_TYPE:
             return {
                 ...state,
-                session : {...state.session, email: action.changedEmail},
+                email: action.changedEmail
             }
         case CHANGE_PASSWORD_ACTION_TYPE:
             return {
                 ...state,
-                session : {...state.session, password: action.changedPassword},
+                password: action.changedPassword
             }
         case CHANGE_REPEAT_PASSWORD_ACTION_TYPE:
             return {
                 ...state,
-                session : {...state.session, repeatPassword: action.changedRepeatPassword},
+                repeatPassword: action.changedRepeatPassword
             }
         case START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE:
             return {
@@ -97,6 +102,12 @@ const UserReducer = (state = initialState, action : UserPageGlobalActionType) : 
                 ...state,
                 authorizedUser: {...state.authorizedUser, userName: action.value}
             }
+        case LOAD_TOKEN_ACTION_TYPE:
+            axios.defaults.headers.common['Authorization'] = `${action.data.token_type} ${action.data.access_token}`
+            return {
+                ...state,
+                session: action.data
+            }
         default:
             return {
                 ...state
@@ -111,7 +122,8 @@ export type UserPageGlobalActionType = ChangeLoginActonType |
     StartEditAccountLoginActionType |
     StartEditAccountEmailActionType |
     EditAccountEmailActionType |
-    EditAccountLoginActionType
+    EditAccountLoginActionType |
+    LoadTokenActionType
 
 export const changeLoginActionCreate = (newLogin: string) : ChangeLoginActonType => ({
     type: CHANGE_LOGIN_ACTION_TYPE, changedLogin: newLogin
@@ -136,6 +148,9 @@ export const editAccountLoginActionCreate = (value: string) : EditAccountLoginAc
 })
 export const editAccountEmailActionCreate = (value: string) : EditAccountEmailActionType => ({
     type: EDIT_ACCOUNT_EMAIL_ACTION_TYPE , value: value
+})
+export const loadTokenActionCreate = (token: SessionType) : LoadTokenActionType => ({
+    type: LOAD_TOKEN_ACTION_TYPE, data: token
 })
 
 
