@@ -5,7 +5,7 @@ import {TestsPropsDispatch, TestsPropsState} from "../../../types/Implementation
 import { Test } from "../../../types/Implementation/Models/Test/Test";
 import {generateTestAnswerActionCreate} from "../../../redux/Reducers/TestAnswerReducer";
 import {Dispatch} from "redux";
-import {GenerateTestAnswerActionType} from "../../../types/Implementation/ActionTypes/GenerateTestAnswerActionType";
+import {GenerateTestAnswerActionType} from "../../../types/Implementation/ActionTypes/TestAnswerActionTypes/GenerateTestAnswerActionType";
 
 let mapStateToProps = (state: AppStateType) : TestsPropsState => {
     return {

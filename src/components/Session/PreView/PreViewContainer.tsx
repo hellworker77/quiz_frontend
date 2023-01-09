@@ -4,7 +4,7 @@ import {AppStateType} from "../../../redux/store";
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-        isAuthorized: state.userReducer.session.isAuthorized
+        isAuthorized: state.userReducer.session.access_token !== ""
     }
 }
 let mapDispatchToProps = (dispatch : any) => {

@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import userPageStyles from './UserPage.module.css'
 import {UserPageProps} from "../../../types/Implementation/Props/UserPageProps";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faKey, faEdit, faGear, faSignOut, faCamera, faSave} from "@fortawesome/free-solid-svg-icons";
 import TestResultsContainer from './TestResults/TestResultsContainer';
 import heraldImage from "../../../images/ranks/herald.png"
+import axios from "axios";
+import {User} from "../../../types/Implementation/Models/Users/User";
 
 const UserPage = (props: UserPageProps) => {
     let loginRef : React.RefObject<HTMLInputElement>= React.createRef()
     let emailRef: React.RefObject<HTMLInputElement> = React.createRef()
+    useEffect(()=>{
+        axios.get<User>("https://localhost:7119/api/User")
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+    },[])
     return (
         <div className={userPageStyles.page_wrapper}>
             <div className={userPageStyles.page_container}>

@@ -2,11 +2,11 @@ import {InitialStateTestResultType} from "../../types/Implementation/InitialStat
 import {
     SELECT_QUESTION_RESULT_ACTION_TYPE,
     SelectQuestionResultActionType
-} from "../../types/Implementation/ActionTypes/SelectQuestionActionType";
+} from "../../types/Implementation/ActionTypes/TestResultsActionTypes/SelectQuestionResultActionType";
 import {
     SELECT_TEST_RESULT_ACTION_TYPE,
     SelectTestResultActionType
-} from "../../types/Implementation/ActionTypes/SelectTestActionType";
+} from "../../types/Implementation/ActionTypes/TestResultsActionTypes/SelectTestResultActionType";
 
 let initialState : InitialStateTestResultType = {
     loadedTestResult : {

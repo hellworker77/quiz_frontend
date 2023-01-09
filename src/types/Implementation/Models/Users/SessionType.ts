@@ -1,8 +1,6 @@
 export type SessionType = {
-    token: string | null,
-    isAuthorized: boolean,
-    login: string,
-    email: string,
-    password: string,
-    repeatPassword: string,
+    access_token: string,
+    expires_in: number
+    scope: string,
+    token_type: string
 }

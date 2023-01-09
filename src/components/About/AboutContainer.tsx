@@ -3,7 +3,7 @@ import {AppStateType} from "../../redux/store";
 import About from "./About";
 import {changeBackgroundActionCreate} from "../../redux/Reducers/AppReducer";
 import {AboutPropsDispatch, AboutPropsState} from "../../types/Implementation/Props/AboutProps";
-import {ChangeBackgroundActionType} from "../../types/Implementation/ActionTypes/ChangeBackgroundActionType";
+import {ChangeBackgroundActionType} from "../../types/Implementation/ActionTypes/AppActionTypes/ChangeBackgroundActionType";
 import {Dispatch} from "redux";
 
 let mapStateToProps = (state: AppStateType) : AboutPropsState => {

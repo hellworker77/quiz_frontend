@@ -5,7 +5,7 @@ import {SessionProps} from "../../types/Implementation/Props/SessionProps";
 
 let mapStateToProps = (state: AppStateType) : SessionProps => {
     return {
-        isAuthorized: state.userReducer.session.isAuthorized
+        isAuthorized: state.userReducer.session.access_token !== ""
     }
 }
 let mapDispatchToProps = (dispatch : any) => {

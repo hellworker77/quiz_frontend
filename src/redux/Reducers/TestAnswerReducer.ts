@@ -1,20 +1,20 @@
 import {InitialStateTestAnswerType} from "../../types/Implementation/InitialStates/InitialStateTestAnswerType";
-import {ADD_ANSWER_ACTION_TYPE, AddAnswerActionType} from "../../types/Implementation/ActionTypes/AddAnswerActionType";
+import {ADD_ANSWER_ACTION_TYPE, AddAnswerActionType} from "../../types/Implementation/ActionTypes/TestAnswerActionTypes/AddAnswerActionType";
 import {QuestionAnswer} from "../../types/Implementation/Models/Question/QuestionAnswer";
 
 import {
     GENERATE_TEST_ANSWER_ACTION_TYPE,
     GenerateTestAnswerActionType
-} from "../../types/Implementation/ActionTypes/GenerateTestAnswerActionType";
+} from "../../types/Implementation/ActionTypes/TestAnswerActionTypes/GenerateTestAnswerActionType";
 import {Test} from "../../types/Implementation/Models/Test/Test";
 import {
     CHANGE_LOCAL_ANSWER_ACTION_TYPE,
     ChangeLocalAnswerActionType
-} from "../../types/Implementation/ActionTypes/ChangeLocalAnswerActionType";
+} from "../../types/Implementation/ActionTypes/TestAnswerActionTypes/ChangeLocalAnswerActionType";
 import {
     SELECT_QUESTION_ANSWER_ACTION_TYPE,
     SelectQuestionAnswerActionType
-} from "../../types/Implementation/ActionTypes/SelectQuestionActionType";
+} from "../../types/Implementation/ActionTypes/TestAnswerActionTypes/SelectQuestionAnswerActionType";
 
 let initialState: InitialStateTestAnswerType = {
     currentAnswer: null,
@@ -30,7 +30,7 @@ const TestAnswerReducer = (state = initialState, action: TestAnswerGlobalActionT
                 id: action.from.id,
                 name: action.from.name,
                 description: action.from.description,
-                answerQuestions: action.from.questions?.map(x =>({
+                answerQuestions: action.from.questionsDto?.map(x =>({
                     id: x.id,
                     title: x.title,
                     answers: x.answers,

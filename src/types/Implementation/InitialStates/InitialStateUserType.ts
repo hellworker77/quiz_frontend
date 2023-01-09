@@ -8,4 +8,8 @@ export type InitialStateUserType = {
     loadedUserData: User | null,
     editingLogin: boolean,
     editingEmail: boolean,
+    login: string,
+    email: string,
+    password: string,
+    repeatPassword: string
 }

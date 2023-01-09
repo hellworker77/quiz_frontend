@@ -4,15 +4,16 @@ import {AppStateType} from "../../../../redux/store";
 import {LoginPropsDispatch, LoginPropsState} from "../../../../types/Implementation/Props/LoginProps";
 import {
     changeLoginActionCreate,
-    changePasswordActionCreate,
+    changePasswordActionCreate, loadTokenActionCreate,
     UserPageGlobalActionType
 } from "../../../../redux/Reducers/UserReducer";
 import {Dispatch} from "redux";
+import {SessionType} from "../../../../types/Implementation/Models/Users/SessionType";
 
 let mapStateToProps = (state: AppStateType) : LoginPropsState => {
     return {
-        login: state.userReducer.session.login,
-        password: state.userReducer.session.password
+        login: state.userReducer.login,
+        password: state.userReducer.password
     }
 }
 let mapDispatchToProps = (dispatch : Dispatch<UserPageGlobalActionType>) : LoginPropsDispatch => {
@@ -23,6 +24,9 @@ let mapDispatchToProps = (dispatch : Dispatch<UserPageGlobalActionType>) : Login
         changePassword:(newPassword: string)=>{
             dispatch(changePasswordActionCreate(newPassword))
         },
+        loadToken:(token: SessionType) =>{
+            dispatch(loadTokenActionCreate(token))
+        }
     }
 }
 

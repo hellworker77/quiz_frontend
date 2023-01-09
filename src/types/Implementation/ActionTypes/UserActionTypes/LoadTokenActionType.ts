@@ -1,4 +1,4 @@
-import {SessionType} from "../Models/Users/SessionType";
+import {SessionType} from "../../Models/Users/SessionType";
 
 export const LOAD_TOKEN_ACTION_TYPE = "LOAD_TOKEN_ACTION_TYPE"
 

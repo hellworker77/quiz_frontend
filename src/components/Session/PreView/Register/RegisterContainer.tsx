@@ -11,10 +11,10 @@ import {Dispatch} from "redux";
 
 let mapStateToProps = (state: AppStateType) : RegisterPropsState => {
     return {
-        login: state.userReducer.session.login,
-        email: state.userReducer.session.email,
-        password: state.userReducer.session.password,
-        repeatPassword: state.userReducer.session.repeatPassword
+        login: state.userReducer.login,
+        email: state.userReducer.email,
+        password: state.userReducer.password,
+        repeatPassword: state.userReducer.repeatPassword
     }
 }
 let mapDispatchToProps = (dispatch : Dispatch<UserPageGlobalActionType>) : RegisterPropsDispatch => {

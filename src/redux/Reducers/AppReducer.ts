@@ -3,7 +3,7 @@ import background from '../../images/2133126.jpg'
 import {
     CHANGE_BACKGROUND_ACTION_TYPE,
     ChangeBackgroundActionType
-} from "../../types/Implementation/ActionTypes/ChangeBackgroundActionType";
+} from "../../types/Implementation/ActionTypes/AppActionTypes/ChangeBackgroundActionType";
 
 let initialState : InitialStateAppType = {
     background: background

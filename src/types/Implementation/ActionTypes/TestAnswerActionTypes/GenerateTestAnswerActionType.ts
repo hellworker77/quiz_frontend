@@ -1,4 +1,4 @@
-import {Test} from "../Models/Test/Test";
+import {Test} from "../../Models/Test/Test";
 export const GENERATE_TEST_ANSWER_ACTION_TYPE = "GENERATE_TEST_ANSWER_ACTION_TYPE"
 
 export type GenerateTestAnswerActionType = {
