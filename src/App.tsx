@@ -9,6 +9,7 @@ import SessionContainer from "./components/Session/SessionContainer";
 import DetailTestAnswerContainer from "./components/DetailTest/DetailTestAnswerContainer";
 import Snowfall from 'react-snowfall'
 import DetailTestResultContainer from "./components/DetailTest/DetailTestResultContainer";
+import LeadersContainer from "./components/Leaders/LeadersContainer";
 
 let App = (props: AppProps) => {
     return (
@@ -23,6 +24,7 @@ let App = (props: AppProps) => {
                     <Route path="/about" element={<AboutContainer/>}/>
                     <Route path="/user/*" element={<SessionContainer />}/>
                     <Route path="/test/:id" element={<DetailTestAnswerContainer />}/>
+                    <Route path="/leaders" element={<LeadersContainer />}/>
                     <Route path="/user/testResult/:id" element={<DetailTestResultContainer />}/>
                 </Routes>
             </BrowserRouter>

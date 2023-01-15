@@ -16,7 +16,7 @@ let mapDispatchToProps = (dispatch : Dispatch<GenerateTestAnswerActionType>) : T
     return {
         generateNewTestAnswer:(copyFrom: Test) =>{
             dispatch(generateTestAnswerActionCreate(copyFrom))
-        }
+        },
     }
 }
 

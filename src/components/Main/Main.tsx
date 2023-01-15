@@ -1,30 +1,30 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {MainProps} from "../../types/Implementation/Props/MainProps";
 import TestsContainer from "./Tests/TestsContainer";
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {Test} from "../../types/Implementation/Models/Test/Test";
+import {loadChunkRequestCreator} from "../../types/Implementation/RequestCreators/TestRequestCreator";
+import mainStyles from './Main.module.css'
 
-let Main = (props : MainProps) => {
-    useEffect(()=>{
-        let promise = new Promise<Array<Test> | null>((resolve, reject)=>{
-            resolve(axios.get<Array<Test> | null>("https://localhost:7119/api/Test/chunk?size=1&number=0")
-                .then(response => {
-                    return response.data
-                }).catch(error => {
-                    return null
-                }))
-        })
-        promise.then(data => props.loadTests(data))
-    },[])
-    return(
-        <div>
-            <TestsContainer />
+let Main = (props: MainProps) => {
+    useEffect( () => {
+        if(props.count === 0){
+            invokeCallbackLoadChunk(props.page, props.size, props.loadTests)
+        }
+    },[]);
+
+    return (
+        <div className={mainStyles.wrapper}>
+            <TestsContainer/>
+            <div className={mainStyles.button} onClick={() => {invokeCallbackLoadChunk(props.page, props.size, props.loadTests)}}>Load more...</div>
         </div>
     )
 }
 
-const T = (a:Array<Test>): void =>{
-    a.forEach(x=>console.log(x.questionsDto))
+const invokeCallbackLoadChunk = (page: number, size: number, callback: (data: Array<Test>) => void) : void =>{
+    let config = loadChunkRequestCreator(page, size)
+    axios<Array<Test>>(config).then(response => callback(response.data)).catch(error => console.log(error))
 }
+
 
 export default Main;

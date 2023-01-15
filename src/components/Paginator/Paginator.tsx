@@ -1,16 +1,17 @@
 import React from 'react';
-import {PaginatorProps} from "../../types/Implementation/Props/PaginatorProps";
 import paginatorStyles from './Paginator.module.css'
 import {QuestionAnswer} from "../../types/Implementation/Models/Question/QuestionAnswer";
 import {QuestionResult} from "../../types/Implementation/Models/Question/QuestionResult";
+import {PaginatorAnswerProps, PaginatorResultProps} from "../../types/Implementation/Props/PaginatorProps";
+import {generateArrayRange} from "../../utilities/generateArrayRange";
 
-export const PaginatorTestAnswer = (props: PaginatorProps) => {
-    let indexes = getRange(props.size)
+export const PaginatorTestAnswer = (props: PaginatorAnswerProps) => {
+    let indexes = generateArrayRange(props.size)
     return (
         <div className={paginatorStyles.bar}>
             <div className={paginatorStyles.button_back}>
                 <button
-                    onClick={() => invokeCallbackBackQuestion(props.selectedIndex, props.selectQuestion)}>{"<<"}</button>
+                    onClick={() => props.scrollBack()}>{"<<"}</button>
             </div>
             <div className={paginatorStyles.buttons_container}>
                 {indexes.map(x => <div
@@ -21,29 +22,29 @@ export const PaginatorTestAnswer = (props: PaginatorProps) => {
             </div>
             <div className={paginatorStyles.button_next}>
                 <button
-                    onClick={() => invokeCallbackNextQuestion(props.selectedIndex, props.selectQuestion)}>{">>"}</button>
+                    onClick={() => props.scrollNext()}>{">>"}</button>
             </div>
         </div>
     );
 };
-export const PaginatorTestResult = (props: PaginatorProps) => {
-    let indexes = getRange(props.size)
+export const PaginatorTestResult = (props: PaginatorResultProps) => {
+    let indexes = generateArrayRange(props.size)
     return (
         <div className={paginatorStyles.bar}>
             <div className={paginatorStyles.button_back}>
                 <button
-                    onClick={() => invokeCallbackBackQuestion(props.selectedIndex, props.selectQuestion)}>{"<<"}</button>
+                    onClick={()=>invokeCallbackSelectQuestion(props.selectedIndex - 1, props.selectQuestion)}>{"<<"}</button>
             </div>
             <div className={paginatorStyles.buttons_container}>
                 {indexes.map(x => <div
-                    className={`${getPaginatorTestResultStyle(props.answers, x)} ${paginatorStyles.button}`}>
-                    <button onClick={() => invokeCallbackSelectQuestion(x, props.selectQuestion)}>{x + 1}</button>
+                    className={`${getPaginatorTestResultStyle(props.results, x)} ${paginatorStyles.button}`}>
+                    <button onClick={()=>invokeCallbackSelectQuestion(x, props.selectQuestion)}>{x + 1}</button>
                 </div>)
                 }
             </div>
             <div className={paginatorStyles.button_next}>
                 <button
-                    onClick={() => invokeCallbackNextQuestion(props.selectedIndex, props.selectQuestion)}>{">>"}</button>
+                    onClick={()=>invokeCallbackSelectQuestion(props.selectedIndex + 1, props.selectQuestion)}>{">>"}</button>
             </div>
         </div>
     );
@@ -71,17 +72,6 @@ const getPaginatorTestResultStyle = (answers: Array<QuestionResult> |Array<Quest
     }
     return style
 }
-const getRange = (size: number): Array<number> =>
-    Array.from(
-        {length: size},
-        (value, index) => index
-    );
 const invokeCallbackSelectQuestion = (index: number, callback: (index: number) => void): void => {
     callback(index);
-}
-const invokeCallbackNextQuestion = (selectedIndex: number, callback: (index: number) => void): void => {
-    callback(selectedIndex + 1)
-}
-const invokeCallbackBackQuestion = (selectedIndex: number, callback: (index: number) => void): void => {
-    callback(selectedIndex - 1)
 }

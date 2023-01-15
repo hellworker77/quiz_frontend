@@ -32,32 +32,59 @@ import {
     EditAccountLoginActionType
 } from "../../types/Implementation/ActionTypes/UserActionTypes/EditAccountLoginActionType";
 import {SessionType} from "../../types/Implementation/Models/Users/SessionType";
-import {LOAD_TOKEN_ACTION_TYPE, LoadTokenActionType} from "../../types/Implementation/ActionTypes/UserActionTypes/LoadTokenActionType";
-import axios from "axios";
+import {
+    LOAD_TOKEN_ACTION_TYPE,
+    LoadTokenActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/LoadTokenActionType";
+import {
+    LOAD_USER_ACTION_TYPE,
+    LoadUserActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/LoadUserActionType";
+import {User} from "../../types/Implementation/Models/Users/User";
+import {
+    STOP_EDIT_ACCOUNT_LOGIN_ACTION_TYPE,
+    StopEditAccountLoginActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StopEditAccountLoginActionType";
+import {
+    STOP_EDIT_ACCOUNT_EMAIL_ACTION_TYPE,
+    StopEditAccountEmailActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StopEditAccountEmailActionType";
+import {
+    LOAD_LEADERS_ACTION_TYPE,
+    LoadLeadersActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/LoadLeadersActionType";
+import {
+    START_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE,
+    StartEditAccountPasswordActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StartEditAccountPasswordActionType";
+import {
+    STOP_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE,
+    StopEditAccountPasswordActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/StopEditAccountPasswordActionType";
+import {
+    CHANGE_OLD_PASSWORD_ACTION_TYPE,
+    ChangeOldPasswordActionType
+} from "../../types/Implementation/ActionTypes/UserActionTypes/ChangeOldPasswordActionType";
 
 let initialState : InitialStateUserType = {
-    authorizedUser : {
-        id:"1",
-        userName: "senior",
-        email: "some@gmail.com",
-        password: "1234",
-        repeatPassword: "1234",
-        rating: 3600,
-    },
-    leaderBoard: null,
-    loadedUserData: null,
+    authorizedUser : null,
+    leaderBoard: [],
+    pageSize:1,
     session: {
         access_token: "",
         expires_in: 0,
         scope: "",
         token_type: ""
     },
+    leaderBoardPage: 0,
     login: "admin",
     email: "mail@gmail.com",
     password: "!QAZ2wsx",
     repeatPassword: "!QAZ2wsx",
+    oldPassword: "!QAZ2wsx",
     editingEmail: false,
-    editingLogin: false
+    editingLogin: false,
+    editingPassword: false
 }
 
 const UserReducer = (state = initialState, action : UserPageGlobalActionType) : InitialStateUserType => {
@@ -82,6 +109,11 @@ const UserReducer = (state = initialState, action : UserPageGlobalActionType) : 
                 ...state,
                 repeatPassword: action.changedRepeatPassword
             }
+        case CHANGE_OLD_PASSWORD_ACTION_TYPE:
+            return {
+                ...state,
+                oldPassword: action.changedPassword
+            }
         case START_EDIT_ACCOUNT_LOGIN_ACTION_TYPE:
             return {
                 ...state,
@@ -91,6 +123,26 @@ const UserReducer = (state = initialState, action : UserPageGlobalActionType) : 
             return {
                 ...state,
                 editingEmail: true
+            }
+        case START_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE:
+            return {
+                ...state,
+                editingPassword: true
+            }
+        case STOP_EDIT_ACCOUNT_LOGIN_ACTION_TYPE:
+            return {
+                ...state,
+                editingLogin: false
+            }
+        case STOP_EDIT_ACCOUNT_EMAIL_ACTION_TYPE:
+            return {
+                ...state,
+                editingEmail: false
+            }
+        case STOP_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE:
+            return {
+                ...state,
+                editingPassword: false
             }
         case EDIT_ACCOUNT_EMAIL_ACTION_TYPE:
             return <InitialStateUserType>{
@@ -103,10 +155,22 @@ const UserReducer = (state = initialState, action : UserPageGlobalActionType) : 
                 authorizedUser: {...state.authorizedUser, userName: action.value}
             }
         case LOAD_TOKEN_ACTION_TYPE:
-            axios.defaults.headers.common['Authorization'] = `${action.data.token_type} ${action.data.access_token}`
             return {
                 ...state,
                 session: action.data
+            }
+        case LOAD_USER_ACTION_TYPE:
+            return {
+                ...state,
+                authorizedUser: {...action.user}
+            }
+        case LOAD_LEADERS_ACTION_TYPE:
+            if(action.data.length > 0){
+                state.leaderBoardPage += 1
+            }
+            return {
+                ...state,
+                leaderBoard: [...state.leaderBoard.concat(action.data)]
             }
         default:
             return {
@@ -119,11 +183,18 @@ export type UserPageGlobalActionType = ChangeLoginActonType |
     ChangeEmailActionType |
     ChangePasswordActionType |
     ChangeRepeatPasswordActionType |
+    ChangeOldPasswordActionType |
     StartEditAccountLoginActionType |
     StartEditAccountEmailActionType |
+    StartEditAccountPasswordActionType |
+    StopEditAccountEmailActionType |
+    StopEditAccountLoginActionType |
+    StopEditAccountPasswordActionType |
     EditAccountEmailActionType |
     EditAccountLoginActionType |
-    LoadTokenActionType
+    LoadTokenActionType |
+    LoadUserActionType |
+    LoadLeadersActionType
 
 export const changeLoginActionCreate = (newLogin: string) : ChangeLoginActonType => ({
     type: CHANGE_LOGIN_ACTION_TYPE, changedLogin: newLogin
@@ -133,6 +204,9 @@ export const changeEmailActionCreate = (newEmail: string) : ChangeEmailActionTyp
 })
 export const changePasswordActionCreate = (newPassword: string) : ChangePasswordActionType => ({
     type: CHANGE_PASSWORD_ACTION_TYPE, changedPassword: newPassword
+})
+export const changeOldPasswordActionCreate = (newPassword: string) : ChangeOldPasswordActionType => ({
+    type: CHANGE_OLD_PASSWORD_ACTION_TYPE, changedPassword: newPassword
 })
 export const changeRepeatPasswordActionCreate = (newPassword: string) : ChangeRepeatPasswordActionType => ({
     type: CHANGE_REPEAT_PASSWORD_ACTION_TYPE, changedRepeatPassword: newPassword
@@ -152,7 +226,24 @@ export const editAccountEmailActionCreate = (value: string) : EditAccountEmailAc
 export const loadTokenActionCreate = (token: SessionType) : LoadTokenActionType => ({
     type: LOAD_TOKEN_ACTION_TYPE, data: token
 })
-
+export const loadUserActionType = (user: User) : LoadUserActionType => ({
+    type: LOAD_USER_ACTION_TYPE, user: user
+})
+export const stopEditAccountLoginActionCreate = () : StopEditAccountLoginActionType => ({
+    type: STOP_EDIT_ACCOUNT_LOGIN_ACTION_TYPE
+})
+export const stopEditAccountEmailActionCreate = () : StopEditAccountEmailActionType => ({
+    type: STOP_EDIT_ACCOUNT_EMAIL_ACTION_TYPE
+})
+export const loadLeadersActionCreate = (data: Array<User>) : LoadLeadersActionType => ({
+    type: LOAD_LEADERS_ACTION_TYPE, data: data
+})
+export const startEditAccountPasswordActionCreate = (): StartEditAccountPasswordActionType => ({
+    type: START_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE
+})
+export const stopEditAccountPasswordActionCreate =() : StopEditAccountPasswordActionType => ({
+    type: STOP_EDIT_ACCOUNT_PASSWORD_ACTION_TYPE
+})
 
 
 

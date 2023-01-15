@@ -5,6 +5,8 @@ import uiStyles from '../UI.module.css'
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {SessionType} from "../../../../types/Implementation/Models/Users/SessionType";
+import {authorizationRequestCreator} from "../../../../types/Implementation/RequestCreators/UserRequestCreator";
+import {User} from "../../../../types/Implementation/Models/Users/User";
 
 const Login = (props: LoginProps) => {
     let loginRef: React.RefObject<HTMLInputElement> = React.createRef()
@@ -26,18 +28,12 @@ let invokeCallback = (refObject : React.RefObject<HTMLInputElement>,callBack: (n
     callBack(refObject.current?.value ?? "");
 }
 let invokeLogin = (login: string, password: string, callback: (token: SessionType) => void) : void => {
-    const params = new URLSearchParams();
-    params.append('client_id', 'Api');
-    params.append('client_secret', 'client_secret');
-    params.append('AllowedScopes', 'api');
-    params.append('grant_type', 'password');
-    params.append('password', password);
-    params.append('username', login);
 
+    let config = authorizationRequestCreator(login, password);
+    axios<SessionType>(config).
+        then(response =>  callback(response.data)).
+        catch(error => console.log(error))
 
-    let promise = new Promise<any>((resolve, reject) =>
-        resolve(axios.post<SessionType>("https://localhost:10001/connect/token", params)))
-    promise.then(response => callback(response.data))
 }
 
 export default Login;

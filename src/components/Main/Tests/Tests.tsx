@@ -6,7 +6,7 @@ import testsStyles from './Tests.module.css'
 let Tests = (props: TestsProps) => {
     return (
         <div className={testsStyles.wrapper}>
-            {props.tests?.map(x => <TestPage test={x} generateNewTestAnswer={props.generateNewTestAnswer} />) ?? <div>No loaded tests</div>}
+            {props.tests.map(x => <TestPage test={x} generateNewTestAnswer={props.generateNewTestAnswer} />)}
         </div>
     );
 };

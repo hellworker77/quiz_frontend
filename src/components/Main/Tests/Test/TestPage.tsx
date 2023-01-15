@@ -7,7 +7,9 @@ import {Test} from "../../../../types/Implementation/Models/Test/Test";
 const TestPage = (props: TestProps) => {
     return (
         <div className={testPageStyles.box}>
-            <div className={testPageStyles.img}></div>
+            <div className={testPageStyles.img}>
+                <img src={`data:image/jpeg;base64,${props.test?.photo?.data}`} alt={"suka"}></img>
+            </div>
             <div className={testPageStyles.content}>
                 <div className={testPageStyles.name}>
                     {props.test.name}

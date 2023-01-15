@@ -8,9 +8,14 @@
     aspect-ratio : 4 / 3;
     grid-row-start: 1;
     background-color: gray;
-    opacity: 0.2;
+    opacity: 1;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    overflow-y: hidden;
+}
+.img img{
+    width: 100%;
+    height: 100%;
 }
 .box .content{
     background: linear-gradient(to bottom right, #232D36, #2f3d49);

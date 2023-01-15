@@ -4,12 +4,19 @@ import {AppStateType} from "../../../redux/store";
 import {UserPagePropsDispatch, UserPagePropsState} from "../../../types/Implementation/Props/UserPageProps";
 import {Dispatch} from "redux";
 import {
-    editAccountEmailActionCreate, editAccountLoginActionCreate,
+    changeOldPasswordActionCreate,
+    changePasswordActionCreate,
+    editAccountEmailActionCreate,
+    editAccountLoginActionCreate,
+    loadUserActionType,
     startEditAccountEmailActionCreate,
     startEditAccountLoginActionCreate,
+    startEditAccountPasswordActionCreate,
+    stopEditAccountEmailActionCreate,
+    stopEditAccountLoginActionCreate, stopEditAccountPasswordActionCreate,
     UserPageGlobalActionType
 } from "../../../redux/Reducers/UserReducer";
-import {selectTestResultActionCreate, TestResultGlobalActionType} from "../../../redux/Reducers/TestResultReducer";
+import {User} from "../../../types/Implementation/Models/Users/User";
 
 let mapStateToProps = (state: AppStateType) : UserPagePropsState=> {
     return {
@@ -19,7 +26,11 @@ let mapStateToProps = (state: AppStateType) : UserPagePropsState=> {
         won: state.testResultReducer.won,
         lose: state.testResultReducer.lose,
         editingLogin: state.userReducer.editingLogin,
-        editingEmail: state.userReducer.editingEmail
+        editingEmail: state.userReducer.editingEmail,
+        editingPassword: state.userReducer.editingPassword,
+        session: state.userReducer.session,
+        password: state.userReducer.password,
+        oldPassword: state.userReducer.oldPassword
     }
 }
 let mapDispatchToProps = (dispatch : Dispatch<UserPageGlobalActionType>) : UserPagePropsDispatch => {
@@ -27,14 +38,35 @@ let mapDispatchToProps = (dispatch : Dispatch<UserPageGlobalActionType>) : UserP
         startEditEmail:()=>{
             dispatch(startEditAccountEmailActionCreate())
         },
-        startEditLogin:()=>[
+        startEditLogin:()=> {
             dispatch(startEditAccountLoginActionCreate())
-        ],
+        },
+        startEditPassword:()=> {
+            dispatch(startEditAccountPasswordActionCreate())
+        },
+        stopEditEmail:()=>{
+            dispatch(stopEditAccountEmailActionCreate())
+        },
+        stopEditLogin:()=> {
+            dispatch(stopEditAccountLoginActionCreate())
+        },
+        stopEditPassword:()=> {
+            dispatch(stopEditAccountPasswordActionCreate())
+        },
         editEmail:(value: string)=>{
             dispatch(editAccountEmailActionCreate(value))
         },
         editLogin:(value:string)=>{
             dispatch(editAccountLoginActionCreate(value))
+        },
+        changePassword: (value: string)=>{
+            dispatch(changePasswordActionCreate(value))
+        },
+        changeOldPassword: (value: string)=>{
+            dispatch(changeOldPasswordActionCreate(value))
+        },
+        loadUser:(user: User)=>{
+            dispatch(loadUserActionType(user))
         }
     }
 }

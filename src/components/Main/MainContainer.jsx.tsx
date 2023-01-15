@@ -12,11 +12,14 @@ import {Test} from "../../types/Implementation/Models/Test/Test";
 
 let mapStateToProps = (state: AppStateType) : MainPropsState => {
     return {
+        page: state.testReducer.page,
+        size: state.testReducer.chunkSize,
+        count: state.testReducer.chunkOfTests.length
     }
 }
 let mapDispatchToProps = (dispatch : Dispatch<TestGlobalActionType>) : MainPropsDispatch => {
     return {
-        loadTests:(data: Array<Test> | null)=>{
+        loadTests:(data: Array<Test>)=>{
             dispatch(loadTestsActionCreate(data))
         }
     }
